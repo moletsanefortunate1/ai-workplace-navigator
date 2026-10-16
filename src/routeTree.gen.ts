@@ -17,6 +17,8 @@ import { Route as AuthenticatedEmailRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedMeetingNotesRouteImport } from './routes/_authenticated/meeting-notes'
 import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticated/planner'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as AuthenticatedChatIndexRouteImport } from './routes/_authenticated/chat.index'
+import { Route as AuthenticatedChatThreadIdRouteImport } from './routes/_authenticated/chat.$threadId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -58,6 +60,17 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedChatIndexRoute = AuthenticatedChatIndexRouteImport.update({
+  id: '/chat/',
+  path: '/chat/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedChatThreadIdRoute =
+  AuthenticatedChatThreadIdRouteImport.update({
+    id: '/chat/$threadId',
+    path: '/chat/$threadId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -67,6 +80,8 @@ export interface FileRoutesByFullPath {
   '/meeting-notes': typeof AuthenticatedMeetingNotesRoute
   '/planner': typeof AuthenticatedPlannerRoute
   '/api/chat': typeof ApiChatRoute
+  '/chat/$threadId': typeof AuthenticatedChatThreadIdRoute
+  '/chat/': typeof AuthenticatedChatIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -76,6 +91,8 @@ export interface FileRoutesByTo {
   '/meeting-notes': typeof AuthenticatedMeetingNotesRoute
   '/planner': typeof AuthenticatedPlannerRoute
   '/api/chat': typeof ApiChatRoute
+  '/chat/$threadId': typeof AuthenticatedChatThreadIdRoute
+  '/chat': typeof AuthenticatedChatIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -87,6 +104,8 @@ export interface FileRoutesById {
   '/_authenticated/meeting-notes': typeof AuthenticatedMeetingNotesRoute
   '/_authenticated/planner': typeof AuthenticatedPlannerRoute
   '/api/chat': typeof ApiChatRoute
+  '/_authenticated/chat/$threadId': typeof AuthenticatedChatThreadIdRoute
+  '/_authenticated/chat/': typeof AuthenticatedChatIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -98,6 +117,8 @@ export interface FileRouteTypes {
     | '/meeting-notes'
     | '/planner'
     | '/api/chat'
+    | '/chat/$threadId'
+    | '/chat/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -107,6 +128,8 @@ export interface FileRouteTypes {
     | '/meeting-notes'
     | '/planner'
     | '/api/chat'
+    | '/chat/$threadId'
+    | '/chat'
   id:
     | '__root__'
     | '/'
@@ -117,6 +140,8 @@ export interface FileRouteTypes {
     | '/_authenticated/meeting-notes'
     | '/_authenticated/planner'
     | '/api/chat'
+    | '/_authenticated/chat/$threadId'
+    | '/_authenticated/chat/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -184,6 +209,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/chat/': {
+      id: '/_authenticated/chat/'
+      path: '/chat'
+      fullPath: '/chat/'
+      preLoaderRoute: typeof AuthenticatedChatIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/chat/$threadId': {
+      id: '/_authenticated/chat/$threadId'
+      path: '/chat/$threadId'
+      fullPath: '/chat/$threadId'
+      preLoaderRoute: typeof AuthenticatedChatThreadIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -192,6 +231,8 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedEmailRoute: typeof AuthenticatedEmailRoute
   AuthenticatedMeetingNotesRoute: typeof AuthenticatedMeetingNotesRoute
   AuthenticatedPlannerRoute: typeof AuthenticatedPlannerRoute
+  AuthenticatedChatThreadIdRoute: typeof AuthenticatedChatThreadIdRoute
+  AuthenticatedChatIndexRoute: typeof AuthenticatedChatIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -199,6 +240,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedEmailRoute: AuthenticatedEmailRoute,
   AuthenticatedMeetingNotesRoute: AuthenticatedMeetingNotesRoute,
   AuthenticatedPlannerRoute: AuthenticatedPlannerRoute,
+  AuthenticatedChatThreadIdRoute: AuthenticatedChatThreadIdRoute,
+  AuthenticatedChatIndexRoute: AuthenticatedChatIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
