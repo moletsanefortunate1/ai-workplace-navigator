@@ -124,7 +124,7 @@ function PlannerPage() {
                       <Input value={b.task} aria-label="Task" onChange={(e) => updateBlock(d, i, { task: e.target.value })} />
                       <Input value={b.note} aria-label="Note" className="text-xs text-muted-foreground" onChange={(e) => updateBlock(d, i, { note: e.target.value })} />
                     </div>
-                    <span className={`justify-self-start rounded-md px-2 py-1 text-xs font-medium ${PRIORITY_STYLE[b.priority.toLowerCase()] ?? PRIORITY_STYLE.low}`}>
+                    <span className={`justify-self-start rounded-md px-2 py-1 text-xs font-medium ${PRIORITY_STYLE[b.priority.toLowerCase()] ?? PRIORITY_STYLE["low"]}`}>
                       {b.priority}
                     </span>
                   </li>
