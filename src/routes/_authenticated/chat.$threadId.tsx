@@ -56,14 +56,14 @@ function ChatPage() {
 
   async function newThread() {
     const { data, error } = await supabase.from("chat_threads").insert({ user_id: user.id }).select("id").single();
-    if (error || !data) return toast.error("Couldn't start a new conversation.");
+    if (error || !data) { toast.error("Couldn't start a new conversation."); return; }
     await qc.invalidateQueries({ queryKey: ["threads"] });
     navigate({ to: "/chat/$threadId", params: { threadId: data.id } });
   }
 
   async function deleteThread(id: string) {
     const { error } = await supabase.from("chat_threads").delete().eq("id", id);
-    if (error) return toast.error("Couldn't delete conversation.");
+    if (error) { toast.error("Couldn't delete conversation."); return; }
     await qc.invalidateQueries({ queryKey: ["threads"] });
     if (id === threadId) navigate({ to: "/chat" });
   }

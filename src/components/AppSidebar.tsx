@@ -22,7 +22,7 @@ export const NAV = [
   { title: "AI Chat", url: "/chat", icon: MessagesSquare },
 ] as const;
 
-export function AppSidebar({ email, onSignOut }: { email?: string; onSignOut: () => void }) {
+export function AppSidebar({ email, onSignOut }: { email?: string | undefined; onSignOut: () => void }) {
   const { setOpenMobile } = useSidebar();
   const path = useRouterState({ select: (s) => s.location.pathname });
 

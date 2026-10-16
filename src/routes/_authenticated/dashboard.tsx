@@ -35,7 +35,7 @@ function timeAgo(iso: string) {
 
 function Dashboard() {
   const { user } = Route.useRouteContext();
-  const name = (user.user_metadata?.full_name as string | undefined)?.split(" ")[0] ?? user.email?.split("@")[0];
+  const name = (user.user_metadata?.["full_name"] as string | undefined)?.split(" ")[0] ?? user.email?.split("@")[0];
   const activity = useQuery({
     queryKey: ["activity"],
     queryFn: async () => {
